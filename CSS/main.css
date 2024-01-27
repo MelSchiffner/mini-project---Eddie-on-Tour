@@ -6,4 +6,9 @@ body {
 #board {
     background-color: #95A834;
     height: 100vh;
+    position: relative;
+}
+
+#eddie {
+    position: absolute;
 }

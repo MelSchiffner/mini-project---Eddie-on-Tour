@@ -1,48 +1,75 @@
 
 class Eddie {
     constructor(){
-        this.positionX = 30;
-        this.positionY = 30;
-        this.width = 50;
-        this.height = 40;
-
-        const eddieImg = document.createElement("img");
-
-        eddieImg.setAttribute("src", "./ ");
-        eddieImg.setAttribute("alt", "Eddie campervan picture");
-        eddieImg.setAttribute("id", "eddie"); 
-
-        const parentElm = document.getElementById("Eddie");
-        parentElm.appendChild(eddieImg);
+        this.width = 100;
+        this.height = 80;
+        this.positionX = 15;
+        this.positionY = 15;
+        this.eddieElm = null;
+       
+        this.createEddieElement
+        ()
 
     }
+    createEddieElement() {
+        this.eddieElm = document.createElement("img");
+
+        this.eddieElm.setAttribute("id", "eddie");
+        this.eddieElm.setAttribute("src", "./Images/Eddie_Cartoonize.png ");
+        this.eddieElm.setAttribute("alt", "Eddie campervan picture");
+
+        this.eddieElm.style.widht = this.width + "px";
+        this.eddieElm.style.height = this.height + "px";
+        this.eddieElm.style.left = this.positionX + "px";
+        this.eddieElm.style.bottom = this.positionY + "px";
+        
+
+        const boardElm = document.getElementById("board");
+        boardElm.appendChild(this.eddieElm);
+
+    }
+
     moveUp() {
         this.positionY = this.positionY + 10; 
-
+        this.eddieElm.style.bottom = this.positionY + "px";
+    
     }
+    
     moveDown(){
         this.positionY = this.positionY - 10;
+        this.eddieElm.style.bottom = this.positionY + "px";
     }
-    jumpUp(){
 
-    } 
+    moveLeft() {
+        if (this.positionX > 0) {
+            this.positionX--;
+            this.eddieElm.style.left = this.positionX + "px";
+        }
+
+    }
+    moveRight(){  
+       if (this.positionX + this.width) {
+           this.positionX++;
+           this.eddieElm.style.left = this.positionX + "px";
+        }
+    
+    
+    /*jumpUp(){
+
+    } */
+}
 }
 
 const eddie = new Eddie();
 
-
-
-/*
 document.addEventListener("keydown", (event) => {
-    if (event.code === "Space") {
-      console.log("you've pressed the spacebar");
-      const spacebarDiv = document.createElement("div");
-      spacebarDiv.textContent = "Spacebar pressed";
-      document.body.appendChild(spacebarDiv);
-  
-    } else if (event.code === "ArrowUp") {
-      console.log("you've pressed the up arrow");
-  
+    if (event.code === "ArrowUp") {
+      eddie.moveUp();
     } else if (event.code === "ArrowDown") {
-      console.log("you've pressed the down arrow")
-      */
+      eddie.moveDown();
+    } else if (event.code === "ArrowRight") {
+        eddie.moveRight();
+    } else if (event.code === "ArrowLeft") {
+        eddie.moveLeft();
+    }
+});
