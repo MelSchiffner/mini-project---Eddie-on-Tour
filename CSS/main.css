@@ -1,0 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#board {
+    background-color: #95A834;
+    height: 100vh;
+}
