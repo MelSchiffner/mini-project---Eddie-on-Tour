@@ -32,6 +32,10 @@ body{
 }
 
 
+.treasure {
+    background-color: red;
+    position: absolute;
+}
 
 #gameover-page {
     background-color: #95A834;

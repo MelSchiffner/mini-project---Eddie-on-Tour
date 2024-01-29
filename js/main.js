@@ -123,8 +123,46 @@ class Obstacle {
     }
 }
 
+class Treasure {
+    constructor(){
+        this.width = 20;
+        this.height = 10;
+        this.positionX = Math.floor(Math.random() * (1000 - 20) + 20);
+        this.positionY = 500;
+        this.domElm = null;
+
+        this.createDomElement();
+    }
+    createDomElement() {
+        this.domElm = document.createElement("div");
+
+        this.domElm.setAttribute("class", "treasure");
+        this.domElm.style.width = this.width + "px"
+        this.domElm.style.height = this.height + "px"
+        this.domElm.style.left = this.positionX + "px";
+        this.domElm.style.bottom = this.positionY + "px";
+
+      
+        const boardElm = document.getElementById("board");
+        boardElm.appendChild(this.domElm);
+    }
+    moveDown(){
+        this.positionY--;
+        const threshold = 60;
+        if (this.positionY + this.height < threshold) {
+            this.domElm.remove();
+        } else {
+            this.domElm.style.bottom = this.positionY + "px"; 
+        }
+    }
+}
+
+
+
+
 const eddie = new Eddie();
 const obstacles = [];
+const treasures = [];
 
 setInterval(() => {
     const newObstacle = new Obstacle();
@@ -145,6 +183,29 @@ setInterval(() => {
 
     });
 }, 20);
+
+
+setInterval(() => {
+    const newTreasure = new Treasure();
+    treasures.push(newTreasure);
+}, 7000);
+
+
+setInterval(() => {
+    treasures.forEach((treasureInstance) => {
+        treasureInstance.moveDown();
+        if (player.positionX < treasureInstance.positionX + treasureInstance.width &&
+            player.positionX + player.width > treasureInstance.positionX &&
+            player.positionY < treasureInstance.positionY + treasureInstance.height &&
+            player.positionY + player.height > treasureInstance.positionY) {
+            
+        }
+
+    });
+}, 20);
+
+
+
 
 document.addEventListener("keydown", (event) => {
     if (event.code === "ArrowUp") {
