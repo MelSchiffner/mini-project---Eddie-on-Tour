@@ -26,4 +26,23 @@ body{
 
 }
 
- 
+.obstacle {
+    background-color: blue;
+    position: absolute;
+}
+
+
+
+#gameover-page {
+    background-color: #95A834;
+    text-align: center;
+    background-image: url('/Images/Eddie_Garage.jpeg');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    color: white;
+    font-size: 22px;
+    
+   
+}
+
