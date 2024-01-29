@@ -7,6 +7,7 @@ class Eddie {
         this.positionY = 15;
         this.eddieElm = null;
         this.jumping = false; 
+        this.score = 0
 
         this.createEddieElement()
 
@@ -27,6 +28,13 @@ class Eddie {
         const boardElm = document.getElementById("board");
         boardElm.appendChild(this.eddieElm);
 
+    }
+
+    createScoreElement(){
+        this.scoreElement = document.createElement("div");
+        this.scoreElement.setAttribute ("id", "score");
+        this.scoreElement.innerHTML = "Score: " + this.score;
+        document.body.appendChild(this.scoreElement);
     }
 
     moveUp() {
@@ -88,6 +96,18 @@ class Eddie {
         }, 50);
     }
 
+    collectTreasure() {
+        this.score += 10; 
+        this.scoreElement.innerHTML = "Score: " + this.score; 
+        console.log("Score: " + this.score);
+    }
+
+    hitObstacle() {
+        this.score -= 10; 
+        this.scoreElement.innerHTML = "Score: " + this.score; 
+        console.log("Score: " + this.score);
+    }
+
 }
 
 class Obstacle {
@@ -95,7 +115,7 @@ class Obstacle {
         this.width = 20; 
         this.height = 20;
         this.positionX = 1100;
-        this.positionY = Math.floor(Math.random() * (100 - 20) + 20);
+        this.positionY = Math.floor(Math.random() * (150 - 20) + 20);
         this.domElm = null;
 
         this.createDomElement();
@@ -126,7 +146,7 @@ class Obstacle {
 class Treasure {
     constructor(){
         this.width = 20;
-        this.height = 10;
+        this.height = 20;
         this.positionX = Math.floor(Math.random() * (1000 - 20) + 20);
         this.positionY = 500;
         this.domElm = null;
@@ -163,7 +183,9 @@ class Treasure {
 const eddie = new Eddie();
 const obstacles = [];
 const treasures = [];
+const score = 0;
 
+// Obstacle Interval
 setInterval(() => {
     const newObstacle = new Obstacle();
     obstacles.push(newObstacle);
@@ -177,6 +199,7 @@ setInterval(() => {
             eddie.positionX + eddie.width > obstacleInstance.positionX &&
             eddie.positionY < obstacleInstance.positionY + obstacleInstance.height &&
             eddie.positionY + eddie.height > obstacleInstance.positionY) {
+            eddie.hitObstacle();
             console.log("game over");
             location.href = "gameover.html";
         }
@@ -185,6 +208,8 @@ setInterval(() => {
 }, 20);
 
 
+
+// Treasure Interval
 setInterval(() => {
     const newTreasure = new Treasure();
     treasures.push(newTreasure);
@@ -194,11 +219,12 @@ setInterval(() => {
 setInterval(() => {
     treasures.forEach((treasureInstance) => {
         treasureInstance.moveDown();
-        if (player.positionX < treasureInstance.positionX + treasureInstance.width &&
-            player.positionX + player.width > treasureInstance.positionX &&
-            player.positionY < treasureInstance.positionY + treasureInstance.height &&
-            player.positionY + player.height > treasureInstance.positionY) {
-            
+        if (eddie.positionX < treasureInstance.positionX + treasureInstance.width &&
+            eddie.positionX + eddie.width > treasureInstance.positionX &&
+            eddie.positionY < treasureInstance.positionY + treasureInstance.height &&
+            eddie.positionY + eddie.height > treasureInstance.positionY) {
+            eddie.collectTreasure();
+            console.log("get treasure");
         }
 
     });
