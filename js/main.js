@@ -13,8 +13,6 @@ class Eddie {
     }
     createEddieElement() {
         this.eddieElm = document.createElement("img");
-        //this.eddieElm = document.createElement("div");
-       
 
         this.eddieElm.setAttribute("id", "eddie");
         this.eddieElm.setAttribute("src", "./Images/Eddie_Cartoonize.png");
@@ -89,10 +87,6 @@ class Eddie {
     }
 
 }
-
-
-
-const eddie = new Eddie();
 
 document.addEventListener("keydown", (event) => {
     if (event.code === "ArrowUp") {
