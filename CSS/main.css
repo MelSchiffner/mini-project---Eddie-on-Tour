@@ -1,15 +1,29 @@
-body {
+body{
     margin: 0;
     padding: 0;
-}
-
-#board {
-    background-color: #95A834;
     height: 100vh;
     position: relative;
+    background-color: #95A834;
 }
 
-#eddie {
+#board{
+    background-image: url('/Images/straight-empty-road.jpg.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 600px;
+    width: 1200px;
     position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 
+#eddie{
+    position: absolute; 
+
+}
+
+ 

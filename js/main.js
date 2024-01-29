@@ -6,13 +6,15 @@ class Eddie {
         this.positionX = 15;
         this.positionY = 15;
         this.eddieElm = null;
-       
-        this.createEddieElement
-        ()
+        this.jumping = false; 
+
+        this.createEddieElement()
 
     }
     createEddieElement() {
         this.eddieElm = document.createElement("img");
+        //this.eddieElm = document.createElement("div");
+       
 
         this.eddieElm.setAttribute("id", "eddie");
         this.eddieElm.setAttribute("src", "./Images/Eddie_Cartoonize.png");
@@ -30,14 +32,14 @@ class Eddie {
     }
 
     moveUp() {
-        if (this.positionY > 0) {
+        if (this.positionY + this.height < 600) {
             this.positionY = this.positionY + 10;
             this.eddieElm.style.bottom = this.positionY + "px";
          }
     }
     
     moveDown(){
-        if (this.positionY + this.height) {
+        if (this.positionY > 0)  {
             this.positionY = this.positionY - 10;
             this.eddieElm.style.bottom = this.positionY + "px";
          }
@@ -51,17 +53,44 @@ class Eddie {
 
     }
     moveRight(){  
-       if (this.positionX + this.width ) {
+       if (this.positionX + this.width < 1200) {
            this.positionX = this.positionX + 10;
            this.eddieElm.style.left = this.positionX + "px";
         }
     }
     
-   /* jumpUp(){
-        
-    } */
+    jump() {
+        if (!this.jumping) {
+            this.jumping = true;
+            this.jumpAnimation();
+        } 
+    }
+
+    jumpAnimation() {
+        if (this.positionY < 200) {
+            this.positionY += 5;
+            this.eddieElm.style.bottom = this.positionY + "px";
+            requestAnimationFrame(() => this.jumpAnimation());
+        } else {
+            this.fall();
+        }
+    }
+
+    fall(){
+           setTimeout(() => {
+            this.positionY -= 5;
+            this.eddieElm.style.bottom = this.positionY + "px";
+            if (this.positionY > 15) {
+                this.fall();
+            } else {
+                this.jumping = false;
+            }
+        }, 50);
+    }
 
 }
+
+
 
 const eddie = new Eddie();
 
@@ -74,5 +103,8 @@ document.addEventListener("keydown", (event) => {
         eddie.moveRight();
     } else if (event.code === "ArrowLeft") {
         eddie.moveLeft();
+    } else if (event.code === "Space") {
+        eddie.jump();
+        console.log("spacebar")
     }
 });
