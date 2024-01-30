@@ -8,7 +8,8 @@ const obstacleImages = [
     './Images/school-bus.png',
     './Images/waste.png',
     './Images/Husky.png',
-    './Images/oil-barrel.png'
+    './Images/oil-barrel.png',
+    './Images/rock.png'
 ]
 
 const treasureImages = [
