@@ -1,6 +1,7 @@
 
 let collisionFlag = false;
-let sec = 120;
+let sec = 40;
+const sound = new Audio ('/sound/vw_sound.wav');
 
 
 const obstacleImages = [
@@ -26,7 +27,7 @@ class Eddie {
         this.width = 150;
         this.height = 66;
         this.positionX = 15;
-        this.positionY = 15;
+        this.positionY = 20;
         this.eddieElm = null;
         this.jumping = false; 
         this.score = 0;
@@ -57,6 +58,7 @@ class Eddie {
         if (this.positionY + this.height < 170) {
             this.positionY += 10;
             this.eddieElm.style.bottom = this.positionY + "px";
+            sound.play();
          }
     }
     
@@ -64,6 +66,7 @@ class Eddie {
         if (this.positionY > 0)  {
             this.positionY -= 10;
             this.eddieElm.style.bottom = this.positionY + "px";
+            sound.play();
          }
     }
 
@@ -71,6 +74,8 @@ class Eddie {
         if (this.positionX > 0) {
             this.positionX -= 10;
             this.eddieElm.style.left = this.positionX + "px";
+            this.eddieElm.style.transform = "scaleX(-1)";
+            sound.play();
         }
 
     }
@@ -78,6 +83,8 @@ class Eddie {
        if (this.positionX + this.width < 1200) {
            this.positionX += 10;
            this.eddieElm.style.left = this.positionX + "px";
+           this.eddieElm.style.transform = "scaleX(1)";
+           sound.play();
         }
     }
     
@@ -118,10 +125,28 @@ class Eddie {
             console.log("Score: " + this.score);
             
             collisionFlag = true; 
+
+            this.removeTreasureElement();
+
             setTimeout(() => {
                 collisionFlag = false; 
             }, 3000); 
         }
+    }
+
+    removeTreasureElement() {
+        
+        const treasureElements = document.querySelectorAll('.treasure');
+        treasureElements.forEach((element) => {
+            if (
+                this.positionX < element.offsetLeft + element.offsetWidth &&
+                this.positionX + this.width > element.offsetLeft &&
+                this.positionY < element.offsetTop + element.offsetHeight &&
+                this.positionY + this.height > element.offsetTop
+            ) {
+                element.remove();
+            }
+        });
     }
     
     hitObstacle() {
@@ -245,7 +270,7 @@ function timer(){
 
         if (sec < 0) {
             clearInterval(timer);
-            location.href = "gameover.html";
+            location.href = "endgamescore.html";
         }
     }, 1000);
 }
@@ -282,7 +307,7 @@ function updateScoreDisplay() {
 setInterval(() => {
     const newObstacle = new Obstacle();
     obstacles.push(newObstacle);
-}, 9000);
+}, 5000);
 
 setInterval(() => {
     obstacles.forEach((obstacleInstance) => {
@@ -298,7 +323,7 @@ setInterval(() => {
         }
 
     });
-}, 20);
+}, 15);
 
 
 
@@ -307,7 +332,7 @@ setInterval(() => {
 setInterval(() => {
     const newTreasure = new Treasure();
     treasures.push(newTreasure);
-}, 7000);
+}, 5000);
 
 
 setInterval(() => {
@@ -323,7 +348,7 @@ setInterval(() => {
         }
 
     });
-}, 20);
+}, 15);
 
 
 

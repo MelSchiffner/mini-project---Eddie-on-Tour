@@ -86,19 +86,73 @@ body{
 
 }
 
-#gameover-page {
-    background-color: #95A834;
-    background-image: url('/Images/Eddie_Garage.jpeg');
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: contain;
 
+
+#gameover-page {
+    display: flex;
+    background-color: #95A834;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+ 
 }
 
-#gameover {
+
+#left-image {
+    flex: 1;
+    height: 100%;
+    background-image: url('/Images/Eddie_Garage.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 0;
+}
+
+#right-image {
+    flex: 1;
+    height: 100%;
+    background-image: url('/Images/Eddie_garage_Top.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 20px 0;
+}
+
+#text-container {
     text-align: center;
     color: white;
     font-size: 20px;
-    margin-top: 100;
+    margin: 20px;
 }
 
+
+
+
+#end-score-page {
+    background-color: #95A834;
+    background-image: url('/Images/Eddie_landscape.jpeg');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+  
+}
+
+#end-score {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    margin-top: 150px;
+}
+
+#score-play-again {
+    text-align: center;
+    color: white; 
+    font-size: 20px;
+    margin-top: 450px;
+    margin-bottom: 400px;
+    margin-left: 100px;
+    margin-right: 800px;
+    border: thick double #95A834;
+    border-radius: 30px;
+    border-style: inset;
+}
