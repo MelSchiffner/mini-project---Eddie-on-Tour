@@ -11,8 +11,8 @@ body{
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 600px;
-    width: 1200px;
+    height: 550px;
+    width: 1100px;
     position: absolute;
     margin: auto;
     top: 0;
@@ -29,7 +29,6 @@ body{
 
 
 .obstacle {
-    background-color: blue;
     position: absolute;
     background-repeat: no-repeat;
     background-position: center;
@@ -38,19 +37,53 @@ body{
 
 
 .treasure {
-    background-color: red;
     position: absolute;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
 }
 
-.score {
-    position: absolute;
-    background-color: blueviolet;
-    width: 60px;
-    height: 60px;
+.timer {
+    background-image: url('/Images/Eddie_score.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    width: 100px;
+    height: 100px;
+    margin-top: 200px;
+    margin-left: 25px;
+    position: fixed;
+}
+
+.timerDisplay {
     text-align: center;
+    padding: 40px;
+}
+
+
+.score {
+    background-image: url('/Images/Eddie_score.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    width: 100px;
+    height: 100px;
+    margin-top: 30px;
+    margin-left: 25px;
+    position: fixed;
+    
+}
+.scoreDisplay {
+    text-align: center;
+    padding: 40px;
+}
+
+
+#Eddie-on-Tour {
+    text-align: center;
+    color: white;
+    
+
 }
 
 #gameover-page {

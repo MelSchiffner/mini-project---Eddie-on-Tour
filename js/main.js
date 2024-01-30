@@ -1,5 +1,24 @@
 
 let collisionFlag = false;
+let sec = 120;
+
+
+const obstacleImages = [
+    './Images/Kanguru.png',
+    './Images/school-bus.png',
+    './Images/waste.png',
+    './Images/Husky.png',
+    './Images/oil-barrel.png'
+]
+
+const treasureImages = [
+    './Images/log.png',
+    './Images/lantern.png',
+    './Images/bonfire.png',
+    './Images/food-drink.png',
+    './Images/fuel-station.png'
+
+]
 
 class Eddie {
     constructor(){
@@ -120,12 +139,15 @@ class Eddie {
     }
 }
 
+
+
+
 class Obstacle {
     constructor(){
-        this.width = 40; 
-        this.height = 40;
-        this.positionX = 1100;
-        this.positionY = Math.floor(Math.random() * (150 - 20) + 20);
+        this.width = 55; 
+        this.height = 55;
+        this.positionX = 1050;
+        this.positionY = Math.floor(Math.random() * (100 - 15) + 15);
         this.domElm = null;
 
         this.createDomElement();
@@ -134,6 +156,10 @@ class Obstacle {
         this.domElm = document.createElement("div");
 
         this.domElm.setAttribute("class", "obstacle");
+
+        const randomImageIndex = Math.floor(Math.random() * obstacleImages.length);
+        this.domElm.style.backgroundImage = `url('${obstacleImages[randomImageIndex]}')`;
+
         this.domElm.style.width = this.width + "px"
         this.domElm.style.height = this.height + "px"
         this.domElm.style.left = this.positionX + "px";
@@ -155,8 +181,8 @@ class Obstacle {
 
 class Treasure {
     constructor(){
-        this.width = 40;
-        this.height = 40;
+        this.width = 55;
+        this.height = 55 ;
         this.positionX = Math.floor(Math.random() * (1000 - 20) + 20);
         this.positionY = 500;
         this.domElm = null;
@@ -167,6 +193,10 @@ class Treasure {
         this.domElm = document.createElement("div");
 
         this.domElm.setAttribute("class", "treasure");
+
+        const randomImageIndex = Math.floor(Math.random() * treasureImages.length);
+        this.domElm.style.backgroundImage = `url('${treasureImages[randomImageIndex]}')`;
+
         this.domElm.style.width = this.width + "px"
         this.domElm.style.height = this.height + "px"
         this.domElm.style.left = this.positionX + "px";
@@ -195,11 +225,38 @@ const obstacles = [];
 const treasures = [];
 let scoreElement;
 
+// Timer
+
+function timer(){
+    const timerElement = document.createElement("div");
+    timerElement.setAttribute("class", "timer");
+
+    const timerDispaly = document.createElement("div");
+    timerDispaly.textContent = sec;
+    timerDispaly.classList.add("timerDisplay");
+    timerElement.appendChild(timerDispaly);
+
+    document.body.appendChild(timerElement);
+
+    let timerInterval = setInterval(function(){
+        timerDispaly.innerHTML = sec;
+        sec--;
+
+        if (sec < 0) {
+            clearInterval(timer);
+            location.href = "gameover.html";
+        }
+    }, 1000);
+}
+
+timer();
+
 
 // Score
 function createScoreElement() {
     scoreElement = document.createElement("div");
     scoreElement.setAttribute("class", "score");
+    
 
     const scoreDisplay = document.createElement("div");
     scoreDisplay.textContent = eddie.score;
@@ -208,19 +265,16 @@ function createScoreElement() {
 
     document.body.appendChild(scoreElement);
 
-    scoreElement.style.position = "absolute";
-    scoreElement.style.left = "50px";
-    scoreElement.style.top = "50px";
-
     collisionFlag = false;
 }
 
 createScoreElement();
 
+
+// Score Dispaly
 function updateScoreDisplay() {
     scoreElement.querySelector(".scoreDisplay").textContent = eddie.score;
 }
-
 
 
 // Obstacle Interval
@@ -228,7 +282,6 @@ setInterval(() => {
     const newObstacle = new Obstacle();
     obstacles.push(newObstacle);
 }, 9000);
-
 
 setInterval(() => {
     obstacles.forEach((obstacleInstance) => {
@@ -245,6 +298,7 @@ setInterval(() => {
 
     });
 }, 20);
+
 
 
 
