@@ -1,4 +1,6 @@
 
+let collisionFlag = false;
+
 class Eddie {
     constructor(){
         this.width = 150;
@@ -7,7 +9,7 @@ class Eddie {
         this.positionY = 15;
         this.eddieElm = null;
         this.jumping = false; 
-        this.score = 0
+        this.score = 0;
 
         this.createEddieElement()
 
@@ -30,12 +32,6 @@ class Eddie {
 
     }
 
-    createScoreElement(){
-        this.scoreElement = document.createElement("div");
-        this.scoreElement.setAttribute ("id", "score");
-        this.scoreElement.innerHTML = "Score: " + this.score;
-        document.body.appendChild(this.scoreElement);
-    }
 
     moveUp() {
         if (this.positionY + this.height < 170) {
@@ -97,23 +93,37 @@ class Eddie {
     }
 
     collectTreasure() {
-        this.score += 10; 
-        this.scoreElement.innerHTML = "Score: " + this.score; 
-        console.log("Score: " + this.score);
+        if (!collisionFlag) {
+            this.score += 10;
+            console.log("Score: " + this.score);
+            
+            collisionFlag = true; 
+            setTimeout(() => {
+                collisionFlag = false; 
+            }, 3000); 
+        }
     }
-
+    
     hitObstacle() {
-        this.score -= 10; 
-        this.scoreElement.innerHTML = "Score: " + this.score; 
-        console.log("Score: " + this.score);
+        if (!collisionFlag) {
+            this.score -= 10;
+            console.log("Score: " + this.score);
+            
+            collisionFlag = true;
+            setTimeout(() => {
+                collisionFlag = false;
+            }, 3000);
+        }
+        if(this.score === 0 || this.score === -10){
+            location.href = "gameover.html";
+        }
     }
-
 }
 
 class Obstacle {
     constructor(){
-        this.width = 20; 
-        this.height = 20;
+        this.width = 40; 
+        this.height = 40;
         this.positionX = 1100;
         this.positionY = Math.floor(Math.random() * (150 - 20) + 20);
         this.domElm = null;
@@ -145,8 +155,8 @@ class Obstacle {
 
 class Treasure {
     constructor(){
-        this.width = 20;
-        this.height = 20;
+        this.width = 40;
+        this.height = 40;
         this.positionX = Math.floor(Math.random() * (1000 - 20) + 20);
         this.positionY = 500;
         this.domElm = null;
@@ -183,7 +193,35 @@ class Treasure {
 const eddie = new Eddie();
 const obstacles = [];
 const treasures = [];
-const score = 0;
+let scoreElement;
+
+
+// Score
+function createScoreElement() {
+    scoreElement = document.createElement("div");
+    scoreElement.setAttribute("class", "score");
+
+    const scoreDisplay = document.createElement("div");
+    scoreDisplay.textContent = eddie.score;
+    scoreDisplay.classList.add("scoreDisplay");
+    scoreElement.appendChild(scoreDisplay);
+
+    document.body.appendChild(scoreElement);
+
+    scoreElement.style.position = "absolute";
+    scoreElement.style.left = "50px";
+    scoreElement.style.top = "50px";
+
+    collisionFlag = false;
+}
+
+createScoreElement();
+
+function updateScoreDisplay() {
+    scoreElement.querySelector(".scoreDisplay").textContent = eddie.score;
+}
+
+
 
 // Obstacle Interval
 setInterval(() => {
@@ -201,7 +239,8 @@ setInterval(() => {
             eddie.positionY + eddie.height > obstacleInstance.positionY) {
             eddie.hitObstacle();
             console.log("game over");
-            location.href = "gameover.html";
+            updateScoreDisplay();
+            //location.href = "gameover.html";
         }
 
     });
@@ -225,6 +264,7 @@ setInterval(() => {
             eddie.positionY + eddie.height > treasureInstance.positionY) {
             eddie.collectTreasure();
             console.log("get treasure");
+            updateScoreDisplay();
         }
 
     });
