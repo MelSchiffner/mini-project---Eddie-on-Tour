@@ -2,7 +2,7 @@
 let collisionFlag = false;
 let sec = 40;
 const sound = new Audio ('./sound/vw_sound.wav');
-const hornSound = new Audio ('./sound/vw_horn.wav');
+const hornSound = new Audio ('./sound/VW_horn.wav');
 
 
 const obstacleImages = [
