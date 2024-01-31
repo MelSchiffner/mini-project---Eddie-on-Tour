@@ -7,7 +7,7 @@ body{
 }
 
 #board{
-    background-image: url('/Images/straight-empty-road.jpg.webp');
+    background-image: url('./Images/straight-empty-road.jpg.webp');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -44,7 +44,7 @@ body{
 }
 
 .timer {
-    background-image: url('/Images/Eddie_score.png');
+    background-image: url('./Images/Eddie_score.png');
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
@@ -62,7 +62,7 @@ body{
 
 
 .score {
-    background-image: url('/Images/Eddie_score.png');
+    background-image: url('./Images/Eddie_score.png');
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
@@ -101,7 +101,7 @@ body{
 #left-image {
     flex: 1;
     height: 100%;
-    background-image: url('/Images/Eddie_Garage.jpeg');
+    background-image: url('./Images/Eddie_Garage.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0 0;
@@ -110,7 +110,7 @@ body{
 #right-image {
     flex: 1;
     height: 100%;
-    background-image: url('/Images/Eddie_garage_Top.jpeg');
+    background-image: url('./Images/Eddie_garage_Top.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     margin: 20px 0;
@@ -128,7 +128,7 @@ body{
 
 #end-score-page {
     background-color: #95A834;
-    background-image: url('/Images/Eddie_landscape.jpeg');
+    background-image: url('./Images/Eddie_landscape.jpeg');
     background-repeat: no-repeat;
     background-position: right;
     background-size: cover;

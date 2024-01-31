@@ -1,7 +1,8 @@
 
 let collisionFlag = false;
 let sec = 40;
-const sound = new Audio ('/sound/vw_sound.wav');
+const sound = new Audio ('./sound/vw_sound.wav');
+const hornSound = new Audio ('./sound/vw_horn.wav');
 
 
 const obstacleImages = [
@@ -92,11 +93,12 @@ class Eddie {
         if (!this.jumping) {
             this.jumping = true;
             this.jumpAnimation();
+            hornSound.play();
         } 
     }
 
     jumpAnimation() {
-        if (this.positionY < 400) {
+        if (this.positionY < 250) {
             this.positionY += 15;
             this.eddieElm.style.bottom = this.positionY + "px";
             this.positionX += 2  ;
