@@ -1,3 +1,9 @@
+@font-face {
+    font-family: Kalam;
+    src: url('../Font/KalamRegular.woff');
+}
+
+
 body{
     margin: 0;
     padding: 0;
@@ -6,11 +12,8 @@ body{
     background-color: #95A834;
 }
 
+
 #board{
-    background-image: url('../Images/straight-empty-road.jpg.webp');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
     height: 550px;
     width: 1100px;
     position: absolute;
@@ -18,32 +21,94 @@ body{
     top: 0;
     right: 0;
     left: 0;
-    bottom: 0;
-    border: thick double #95A834;
-    border-radius: 30px;
+    bottom: 0;  
 }
 
+#backgroundImage {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-image: url('../Images/01straight-empty-road.jpg.webp'),
+                      url('../Images/02straight-empty-road.jpg.webp'),
+                      url('../Images/03straight-empty-road.jpg.webp'),
+                      url('../Images/04straight-empty-road.jpg.webp');
+    background-size: 100vw 100%;
+    background-position: 0px, 0px;
+    border: thick double #95A834;
+    border-radius: 30px;
+    animation: moveBackground 80s linear infinite paused;
+}
+
+@keyframes moveBackground {
+    100% {
+        background-position: 400vw 0px,
+                             300vw 0px,
+                             200vw 0px,
+                             100vw 0px;
+    }
+}
+
+#eddie_on_tour {
+    text-align: center;
+    color: white;
+    font-family: 'Kalam', sans-serif; 
+    font-size: 50px;
+    margin-top: 10px;
+}
 
 #startButton {
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 50px;
     padding: 10px 20px;
     color: white;
-    background-color: #95A834;
+    background-color: #95A83495;
     border: thick double #95A834;
     border-radius: 30px;
-
+    font-family: 'Kalam', sans-serif; 
 }
 
+
+@keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+
+#startButton:hover {
+    background-color: #cbf015;
+    cursor: pointer;
+    animation: blink 1s infinite;
+}
+
+
+#instruction {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #95A83495;
+    border: thick double #95A834;
+    border-radius: 30px;
+    font-family: 'Kalam', sans-serif; 
+    text-align: center;
+}
+
+#instruction img {
+    display: inline-block;
+    margin: 0 10px;
+}
 
 #eddie{
     position: absolute; 
     left: 15px;
     bottom: 20px;
-
 }
 
 
@@ -97,12 +162,6 @@ body{
 }
 
 
-#Eddie-on-Tour {
-    text-align: center;
-    color: white;
-    
-
-}
 
 
 /* gameover.htlm */
@@ -149,8 +208,8 @@ body{
     background-color: #95A834;
     background-image: url('../Images/Eddie_landscape.jpeg');
     background-repeat: no-repeat;
-    background-position: right;
-    background-size: cover;
+    background-position: center;
+    background-size: contain;
     height: 100vh;
     width: 100vw;
 }
@@ -159,17 +218,23 @@ body{
     text-align: center;
     color: white;
     font-size: 20px;
-    margin-top: 150px;
+    margin: auto; 
+}
+
+#finalScore {
+    font-size: 50px;
+    margin-top: 200px;
 }
 
 #score-play-again {
     text-align: center;
     color: white; 
     font-size: 20px;
-    margin-top: 450px;
-    margin-bottom: 400px;
-    margin-left: 100px;
-    margin-right: 800px;
+    margin-top: 350px;
+    margin-right: 700px;
     border: thick double #95A834;
     border-radius: 30px;
+    padding: 25px;
+    display: inline-block; 
+    background-color: #95A83490;
 }

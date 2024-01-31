@@ -5,22 +5,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const boardElm = document.getElementById("board");
     if (boardElm) {
+        const backgroundImage = document.createElement("div");
+        backgroundImage.id = "backgroundImage";
+        boardElm.appendChild(backgroundImage);
         boardElm.appendChild(startButton);
-    } else {
-        console.error("Error: 'board' element not found");
-    }
+    } 
+
+    // Instructions
+    const instruction = document.createElement("div");
+    instruction.innerHTML = "Move Eddie around with arrow keys or press the spacebar to make him jump."
+
+    const arrowImg = document.createElement ("img");
+    arrowImg.src = "./Images/arrow.png";
+    arrowImg.style.width = "50px";  
+    arrowImg.style.height = "50px";
+    instruction.appendChild(arrowImg);
+
+    const spaceImg = document.createElement ("img");
+    spaceImg.src = "./Images/space.png";
+    spaceImg.style.width = "50px";  
+    spaceImg.style.height = "50px";
+    instruction.appendChild(spaceImg);
+
+    instruction.appendChild(document.createElement("br"));
+    
+    instruction.innerHTML += "<br>Avoid the obstacles on the road. <br>And collect the treasures falling from the sky!"
+    
+    instruction.id = "instruction";
+
+    boardElm.appendChild(instruction);
 
     startButton.addEventListener("click", () => {
         startGame();
         startButton.style.display = "none";
+        instruction.style.display = "none";
     });
 });
 
 
 let collisionFlag = false;
 let sec = 40;
-const sound = new Audio ('./sound/vw_sound.wav');
-const hornSound = new Audio ('./sound/VW_horn.wav');
+let sound = new Audio ('./sound/vw_sound.wav');
+sound.volume = 0.2;
+let hornSound = new Audio ('./sound/VW_horn.wav');
+hornSound.volume = 0.2;
 
 
 const obstacleImages = [
@@ -148,7 +176,6 @@ class Eddie {
 
                  const collectedTreasures = document.querySelectorAll('.treasure');
         collectedTreasures.forEach((treasure) => {
-            // Check if Eddie is close to the treasure before removing it
             const treasureRect = treasure.getBoundingClientRect();
             const eddieRect = this.eddieElm.getBoundingClientRect();
 
@@ -278,11 +305,19 @@ class Treasure {
 
 
 
-
 let eddie;
 let obstacles = [];
 let treasures = [];
 let scoreElement;
+
+// Start Background Animation
+
+function startBackgroundAnimation() {
+    const backgroundImage = document.getElementById("backgroundImage");
+    if (backgroundImage) {
+        backgroundImage.style.animationPlayState = "running";
+    }
+}
 
 
 // Start game
@@ -292,6 +327,7 @@ function startGame(){
     treasures = [];
     timer();
     createScoreElement();
+    startBackgroundAnimation();
 
 
     // Obstacle Interval
@@ -308,9 +344,8 @@ function startGame(){
                 eddie.positionY < obstacleInstance.positionY + obstacleInstance.height &&
                 eddie.positionY + eddie.height > obstacleInstance.positionY) {
                 eddie.hitObstacle();
-                console.log("game over");
+                console.log("outch you hit an obstacle");
                 updateScoreDisplay();
-                //location.href = "gameover.html";
             }
 
         });
@@ -334,12 +369,13 @@ function startGame(){
                 eddie.positionY < treasureInstance.positionY + treasureInstance.height &&
                 eddie.positionY + eddie.height > treasureInstance.positionY) {
                 eddie.collectTreasure();
-                console.log("get treasure");
+                console.log("yeah I'm getting a treasure");
                 updateScoreDisplay();
             }
 
         });
     }, 15);
+
 
     // Timer
 
@@ -360,6 +396,7 @@ function startGame(){
 
             if (sec < 0) {
                 clearInterval(timerInterval);
+                localStorage.setItem("finalScore", eddie.score);
                 location.href = "endgamescore.html";
             }
         }, 1000);

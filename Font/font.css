@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'KalamRegular';
+	src: local('KalamRegular'), url('./KalamRegular.woff') format('woff');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_80802">Text with this font applied</p> */
+.fontsforweb_fontid_80802 {
+	font-family: 'KalamRegular' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */

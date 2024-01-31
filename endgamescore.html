@@ -10,7 +10,14 @@
 </head>
 <body id="end-score-page">
     <div id="end-score">
-        <h1>Your score</h1>
+        <div id="finalScore"></div>
+        <script>
+            const finalScore = localStorage.getItem("finalScore");
+            const finalScoreElement = document.getElementById("finalScore");
+            if (finalScoreElement) {
+                finalScoreElement.textContent = "Final Score: " + finalScore;
+            }
+        </script>
         
         <div id="score-play-again">
         <a href="./index.html">Play again</a> 
