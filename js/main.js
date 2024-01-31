@@ -13,22 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Instructions
     const instruction = document.createElement("div");
-    instruction.innerHTML = "Move Eddie around with arrow keys or press the spacebar to make him jump."
+    instruction.innerHTML = "Move Eddie around with arrow keys or press the spacebar to make him jump.<br>"
 
     const arrowImg = document.createElement ("img");
     arrowImg.src = "./Images/arrow.png";
-    arrowImg.style.width = "50px";  
-    arrowImg.style.height = "50px";
+    arrowImg.style.width = "55px";  
+    arrowImg.style.height = "55px";
     instruction.appendChild(arrowImg);
 
     const spaceImg = document.createElement ("img");
     spaceImg.src = "./Images/space.png";
-    spaceImg.style.width = "50px";  
-    spaceImg.style.height = "50px";
+    spaceImg.style.width = "55px";  
+    spaceImg.style.height = "55px";
     instruction.appendChild(spaceImg);
 
-    instruction.appendChild(document.createElement("br"));
-    
     instruction.innerHTML += "<br>Avoid the obstacles on the road. <br>And collect the treasures falling from the sky!"
     
     instruction.id = "instruction";
