@@ -19,13 +19,32 @@ body{
     right: 0;
     left: 0;
     bottom: 0;
+    border: thick double #95A834;
+    border-radius: 30px;
 }
+
+
+#startButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #95A834;
+    border: thick double #95A834;
+    border-radius: 30px;
+
+}
+
 
 #eddie{
     position: absolute; 
+    left: 15px;
+    bottom: 20px;
 
 }
-
 
 
 .obstacle {
@@ -34,7 +53,6 @@ body{
     background-position: center;
     background-size: contain;
 }
-
 
 .treasure {
     position: absolute;
@@ -87,6 +105,7 @@ body{
 }
 
 
+/* gameover.htlm */
 
 #gameover-page {
     display: flex;
@@ -96,7 +115,6 @@ body{
     height: 100vh;
  
 }
-
 
 #left-image {
     flex: 1;
@@ -125,6 +143,7 @@ body{
 
 
 
+/* endgamescore.htlm */
 
 #end-score-page {
     background-color: #95A834;
@@ -134,7 +153,6 @@ body{
     background-size: cover;
     height: 100vh;
     width: 100vw;
-  
 }
 
 #end-score {
@@ -154,5 +172,4 @@ body{
     margin-right: 800px;
     border: thick double #95A834;
     border-radius: 30px;
-    border-style: inset;
 }

@@ -1,3 +1,21 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const startButton = document.createElement("button");
+    startButton.textContent = "Start Roadtrip";
+    startButton.id = "startButton";
+
+    const boardElm = document.getElementById("board");
+    if (boardElm) {
+        boardElm.appendChild(startButton);
+    } else {
+        console.error("Error: 'board' element not found");
+    }
+
+    startButton.addEventListener("click", () => {
+        startGame();
+        startButton.style.display = "none";
+    });
+});
+
 
 let collisionFlag = false;
 let sec = 40;
@@ -128,14 +146,29 @@ class Eddie {
             
             collisionFlag = true; 
 
-            this.removeTreasureElement();
+                 const collectedTreasures = document.querySelectorAll('.treasure');
+        collectedTreasures.forEach((treasure) => {
+            // Check if Eddie is close to the treasure before removing it
+            const treasureRect = treasure.getBoundingClientRect();
+            const eddieRect = this.eddieElm.getBoundingClientRect();
+
+            if (
+                eddieRect.right >= treasureRect.left &&
+                eddieRect.left <= treasureRect.right &&
+                eddieRect.bottom >= treasureRect.top &&
+                eddieRect.top <= treasureRect.bottom
+            ) {
+                treasure.remove();
+            }
+            });
+    
 
             setTimeout(() => {
                 collisionFlag = false; 
             }, 3000); 
         }
     }
-
+/*
     removeTreasureElement() {
         
         const treasureElements = document.querySelectorAll('.treasure');
@@ -149,7 +182,7 @@ class Eddie {
                 element.remove();
             }
         });
-    }
+    } */
     
     hitObstacle() {
         if (!collisionFlag) {
@@ -166,8 +199,6 @@ class Eddie {
         }
     }
 }
-
-
 
 
 class Obstacle {
@@ -248,109 +279,120 @@ class Treasure {
 
 
 
-const eddie = new Eddie();
-const obstacles = [];
-const treasures = [];
+let eddie;
+let obstacles = [];
+let treasures = [];
 let scoreElement;
 
-// Timer
 
-function timer(){
-    const timerElement = document.createElement("div");
-    timerElement.setAttribute("class", "timer");
+// Start game
+function startGame(){
+    eddie = new Eddie();
+    obstacles = [];
+    treasures = [];
+    timer();
+    createScoreElement();
 
-    const timerDispaly = document.createElement("div");
-    timerDispaly.textContent = sec;
-    timerDispaly.classList.add("timerDisplay");
-    timerElement.appendChild(timerDispaly);
 
-    document.body.appendChild(timerElement);
+    // Obstacle Interval
+    setInterval(() => {
+        const newObstacle = new Obstacle();
+        obstacles.push(newObstacle);
+    }, 5000);
 
-    let timerInterval = setInterval(function(){
-        timerDispaly.innerHTML = sec;
-        sec--;
+    setInterval(() => {
+        obstacles.forEach((obstacleInstance) => {
+            obstacleInstance.moveLeft();
+            if (eddie.positionX < obstacleInstance.positionX + obstacleInstance.width &&
+                eddie.positionX + eddie.width > obstacleInstance.positionX &&
+                eddie.positionY < obstacleInstance.positionY + obstacleInstance.height &&
+                eddie.positionY + eddie.height > obstacleInstance.positionY) {
+                eddie.hitObstacle();
+                console.log("game over");
+                updateScoreDisplay();
+                //location.href = "gameover.html";
+            }
 
-        if (sec < 0) {
-            clearInterval(timer);
-            location.href = "endgamescore.html";
-        }
-    }, 1000);
+        });
+    }, 15);
+
+
+
+
+    // Treasure Interval
+    setInterval(() => {
+        const newTreasure = new Treasure();
+        treasures.push(newTreasure);
+    }, 5000);
+
+
+    setInterval(() => {
+        treasures.forEach((treasureInstance) => {
+            treasureInstance.moveDown();
+            if (eddie.positionX < treasureInstance.positionX + treasureInstance.width &&
+                eddie.positionX + eddie.width > treasureInstance.positionX &&
+                eddie.positionY < treasureInstance.positionY + treasureInstance.height &&
+                eddie.positionY + eddie.height > treasureInstance.positionY) {
+                eddie.collectTreasure();
+                console.log("get treasure");
+                updateScoreDisplay();
+            }
+
+        });
+    }, 15);
+
+    // Timer
+
+    function timer(){
+        const timerElement = document.createElement("div");
+        timerElement.setAttribute("class", "timer");
+
+        const timerDispaly = document.createElement("div");
+        timerDispaly.textContent = sec;
+        timerDispaly.classList.add("timerDisplay");
+        timerElement.appendChild(timerDispaly);
+
+        document.body.appendChild(timerElement);
+
+        let timerInterval = setInterval(function(){
+            timerDispaly.innerHTML = sec;
+            sec--;
+
+            if (sec < 0) {
+                clearInterval(timerInterval);
+                location.href = "endgamescore.html";
+            }
+        }, 1000);
+    }
+
+    timer();
+
+
+    // Score
+    function createScoreElement() {
+        scoreElement = document.createElement("div");
+        scoreElement.setAttribute("class", "score");
+        
+
+        const scoreDisplay = document.createElement("div");
+        scoreDisplay.textContent = eddie.score;
+        scoreDisplay.classList.add("scoreDisplay");
+        scoreElement.appendChild(scoreDisplay);
+
+        document.body.appendChild(scoreElement);
+
+        collisionFlag = false;
+    }
+
+    createScoreElement();
+
+
+    // Score Dispaly
+    function updateScoreDisplay() {
+        scoreElement.querySelector(".scoreDisplay").textContent = eddie.score;
+    }
+
 }
-
-timer();
-
-
-// Score
-function createScoreElement() {
-    scoreElement = document.createElement("div");
-    scoreElement.setAttribute("class", "score");
-    
-
-    const scoreDisplay = document.createElement("div");
-    scoreDisplay.textContent = eddie.score;
-    scoreDisplay.classList.add("scoreDisplay");
-    scoreElement.appendChild(scoreDisplay);
-
-    document.body.appendChild(scoreElement);
-
-    collisionFlag = false;
-}
-
-createScoreElement();
-
-
-// Score Dispaly
-function updateScoreDisplay() {
-    scoreElement.querySelector(".scoreDisplay").textContent = eddie.score;
-}
-
-
-// Obstacle Interval
-setInterval(() => {
-    const newObstacle = new Obstacle();
-    obstacles.push(newObstacle);
-}, 5000);
-
-setInterval(() => {
-    obstacles.forEach((obstacleInstance) => {
-        obstacleInstance.moveLeft();
-        if (eddie.positionX < obstacleInstance.positionX + obstacleInstance.width &&
-            eddie.positionX + eddie.width > obstacleInstance.positionX &&
-            eddie.positionY < obstacleInstance.positionY + obstacleInstance.height &&
-            eddie.positionY + eddie.height > obstacleInstance.positionY) {
-            eddie.hitObstacle();
-            console.log("game over");
-            updateScoreDisplay();
-            //location.href = "gameover.html";
-        }
-
-    });
-}, 15);
-
-
-
-
-// Treasure Interval
-setInterval(() => {
-    const newTreasure = new Treasure();
-    treasures.push(newTreasure);
-}, 5000);
-
-
-setInterval(() => {
-    treasures.forEach((treasureInstance) => {
-        treasureInstance.moveDown();
-        if (eddie.positionX < treasureInstance.positionX + treasureInstance.width &&
-            eddie.positionX + eddie.width > treasureInstance.positionX &&
-            eddie.positionY < treasureInstance.positionY + treasureInstance.height &&
-            eddie.positionY + eddie.height > treasureInstance.positionY) {
-            eddie.collectTreasure();
-            console.log("get treasure");
-            updateScoreDisplay();
-        }
-
-    });
-}, 15);
 
 
 
