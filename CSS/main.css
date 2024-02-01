@@ -36,17 +36,10 @@ body{
     background-position: 0px, 0px;
     border: thick double #95A834;
     border-radius: 30px;
+    animation: moveBackground 80s linear infinite paused;
 }
 
-.moveBackgroundRight {
-    animation: moveBackgroundRight 50s linear infinite;
-} 
-
-.moveBackgroundLeft {
-    animation: moveBackgroundLeft 50s linear infinite;
-} 
-
-@keyframes moveBackgroundRight {
+@keyframes moveBackground {
     100% {
         background-position: 400vw 0px,
                              300vw 0px,
@@ -55,14 +48,6 @@ body{
     }
 }
 
-@keyframes moveBackgroundLeft {
-    100% {
-        background-position: -400vw 0px,
-                             -300vw 0px,
-                             -200vw 0px,
-                             -100vw 0px;
-    }
-}
 
 #eddie_on_tour {
     text-align: center;
@@ -129,20 +114,6 @@ body{
 }
 
 
-.obstacle {
-    position: absolute;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-.treasure {
-    position: absolute;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
 .timer {
     background-image: url('../Images/Eddie_score.png');
     background-repeat: no-repeat;
@@ -158,6 +129,7 @@ body{
 .timerDisplay {
     text-align: center;
     padding: 40px;
+    font-family: 'Kalam', sans-serif; 
 }
 
 
@@ -176,8 +148,22 @@ body{
 .scoreDisplay {
     text-align: center;
     padding: 40px;
+    font-family: 'Kalam', sans-serif; 
 }
 
+.obstacle {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.treasure {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
 
 
 
@@ -215,6 +201,7 @@ body{
     color: white;
     font-size: 20px;
     margin: 20px;
+    font-family: 'Kalam', sans-serif; 
 }
 
 

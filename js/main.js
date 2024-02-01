@@ -82,9 +82,9 @@ class Eddie {
         this.jumping = false; 
         this.score = 0;
         this.obstacleSound = new Audio ('./sound/crash.wav');
-        this.obstacleSound.volume = 0.2;
+        this.obstacleSound.volume = 0.1;
         this.treasureSound = new Audio ('./sound/ring.wav');
-        this.treasureSound.volume = 0.4;
+        this.treasureSound.volume = 0.2;
 
         this.createEddieElement()
 
@@ -216,7 +216,7 @@ class Eddie {
                 collisionFlag = false;
             }, 3000);
         }
-        if(this.score === 0 || this.score === -10){
+        if(this.score < -1){
             location.href = "gameover.html";
         }
     }
@@ -305,22 +305,12 @@ let obstacles = [];
 let treasures = [];
 let scoreElement;
 
-// Background Animation
-function setEddieDirection(direction) {
-    const backgroundImage = document.getElementById("backgroundImage");
+// Start Background Animation
 
+function startBackgroundAnimation() {
+    const backgroundImage = document.getElementById("backgroundImage");
     if (backgroundImage) {
-        backgroundImage.classList.remove("moveBackgroundRight", "moveBackgroundLeft");
-        switch (direction) {
-            case "left":
-                backgroundImage.classList.add("moveBackgroundLeft");
-                break;
-            case "right":
-                backgroundImage.classList.add("moveBackgroundRight");
-                break;
-            default:
-                break;
-        }
+        backgroundImage.style.animationPlayState = "running";
     }
 }
 
@@ -333,6 +323,8 @@ function startGame(){
     treasures = [];
     timer();
     createScoreElement();
+    startBackgroundAnimation();
+
 
 
     // Obstacle Interval
