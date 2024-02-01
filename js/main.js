@@ -197,7 +197,6 @@ class Eddie {
             }
             });
     
-
             setTimeout(() => {
                 collisionFlag = false; 
             }, 1500); 
