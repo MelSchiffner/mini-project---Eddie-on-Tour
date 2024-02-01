@@ -29,8 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     spaceImg.style.height = "55px";
     instruction.appendChild(spaceImg);
     
-    instruction.innerHTML += "<br>Avoid the obstacles on the road (-10 points). <br>And collect the treasures falling from the sky (+10 points)!"
-    
+    instruction.innerHTML += "<br>Avoid the obstacles on the road (-10 points). <br>And collect the treasures falling from the sky (+10 points)!";
     instruction.id = "instruction";
 
     boardElm.appendChild(instruction);
@@ -58,9 +57,11 @@ const obstacleImages = [
     './Images/Kanguru.png',
     './Images/school-bus.png',
     './Images/waste.png',
-    './Images/Husky.png',
+    './Images/dog.png',
     './Images/oil-barrel.png',
-    './Images/rock.png'
+    './Images/rock.png',
+    './Images/deer.png',
+    './Images/van.png'
 ]
 
 const treasureImages = [
@@ -68,8 +69,8 @@ const treasureImages = [
     './Images/lantern.png',
     './Images/bonfire.png',
     './Images/food-drink.png',
-    './Images/fuel-station.png'
-
+    './Images/fuel-station.png',
+    './Images/wine.png'
 ]
 
 class Eddie {
@@ -327,7 +328,7 @@ function startGame(){
 
 
     // Obstacle Interval
-    let obstacleSpeed = 5000;
+    let obstacleSpeed = 4000;
 
     setInterval(() => {
         const newObstacle = new Obstacle();
@@ -350,15 +351,15 @@ function startGame(){
     }, 10);
 
     setTimeout(() => {
-        obstacleSpeed = 4000;
+        obstacleSpeed = 3000;
     }, 30000);
 
     setTimeout(() => {
-        obstacleSpeed = 3000;
+        obstacleSpeed = 2000;
     }, 60000);
 
     setTimeout(() => {
-        obstacleSpeed = 2000;
+        obstacleSpeed = 1000;
     }, 90000);
 
 
