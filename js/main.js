@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
+
     const startButton = document.createElement("button");
     startButton.textContent = "Start Roadtrip";
     startButton.id = "startButton";
@@ -13,12 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Instructions
     const instruction = document.createElement("div");
-    instruction.innerHTML = "Move Eddie around with arrow keys or press the spacebar to make him jump.<br>"
+    instruction.innerHTML = "Move Eddie around with arrow keys or press the spacebar to make him jump."
 
     const arrowImg = document.createElement ("img");
     arrowImg.src = "./Images/arrow.png";
     arrowImg.style.width = "55px";  
     arrowImg.style.height = "55px";
+
     instruction.appendChild(arrowImg);
 
     const spaceImg = document.createElement ("img");
@@ -27,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     spaceImg.style.height = "55px";
     instruction.appendChild(spaceImg);
 
+    instruction.appendChild(document.createElement("br"));
+    
     instruction.innerHTML += "<br>Avoid the obstacles on the road. <br>And collect the treasures falling from the sky!"
     
     instruction.id = "instruction";
@@ -34,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
     boardElm.appendChild(instruction);
 
     startButton.addEventListener("click", () => {
+        let backgroundMusic = new Audio('./sound/Xavier Rudd - Follow The Sun [official music video].mp3');
+        backgroundMusic.volume = 0.2;
+        backgroundMusic.play();
         startGame();
         startButton.style.display = "none";
         instruction.style.display = "none";
@@ -42,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 let collisionFlag = false;
-let sec = 40;
+let sec = 120;
 let sound = new Audio ('./sound/vw_sound.wav');
 sound.volume = 0.2;
 let hornSound = new Audio ('./sound/VW_horn.wav');
@@ -101,7 +109,7 @@ class Eddie {
 
     moveUp() {
         if (this.positionY + this.height < 170) {
-            this.positionY += 10;
+            this.positionY += 15;
             this.eddieElm.style.bottom = this.positionY + "px";
             sound.play();
          }
@@ -109,7 +117,7 @@ class Eddie {
     
     moveDown(){
         if (this.positionY > 0)  {
-            this.positionY -= 10;
+            this.positionY -= 15;
             this.eddieElm.style.bottom = this.positionY + "px";
             sound.play();
          }
@@ -117,7 +125,7 @@ class Eddie {
 
     moveLeft() {
         if (this.positionX > 0) {
-            this.positionX -= 10;
+            this.positionX -= 15;
             this.eddieElm.style.left = this.positionX + "px";
             this.eddieElm.style.transform = "scaleX(-1)";
             sound.play();
@@ -125,8 +133,8 @@ class Eddie {
 
     }
     moveRight(){  
-       if (this.positionX + this.width < 1200) {
-           this.positionX += 10;
+       if (this.positionX + this.width < 1100) {
+           this.positionX += 15;
            this.eddieElm.style.left = this.positionX + "px";
            this.eddieElm.style.transform = "scaleX(1)";
            sound.play();
@@ -162,7 +170,7 @@ class Eddie {
             } else {
                 this.jumping = false;
             }
-        }, 50);
+        }, 30);
     }
 
     collectTreasure() {
@@ -193,21 +201,6 @@ class Eddie {
             }, 3000); 
         }
     }
-/*
-    removeTreasureElement() {
-        
-        const treasureElements = document.querySelectorAll('.treasure');
-        treasureElements.forEach((element) => {
-            if (
-                this.positionX < element.offsetLeft + element.offsetWidth &&
-                this.positionX + this.width > element.offsetLeft &&
-                this.positionY < element.offsetTop + element.offsetHeight &&
-                this.positionY + this.height > element.offsetTop
-            ) {
-                element.remove();
-            }
-        });
-    } */
     
     hitObstacle() {
         if (!collisionFlag) {
@@ -329,10 +322,12 @@ function startGame(){
 
 
     // Obstacle Interval
+    let obstacleSpeed = 5000;
+
     setInterval(() => {
         const newObstacle = new Obstacle();
         obstacles.push(newObstacle);
-    }, 5000);
+    }, obstacleSpeed);
 
     setInterval(() => {
         obstacles.forEach((obstacleInstance) => {
@@ -347,16 +342,26 @@ function startGame(){
             }
 
         });
-    }, 15);
+    }, 10);
 
+    setTimeout(() => {
+        obstacleSpeed = 4000;
+    }, 30000);
 
+    setTimeout(() => {
+        obstacleSpeed = 3000;
+    }, 60000);
+
+    setTimeout(() => {
+        obstacleSpeed = 2000;
+    }, 90000);
 
 
     // Treasure Interval
     setInterval(() => {
         const newTreasure = new Treasure();
         treasures.push(newTreasure);
-    }, 5000);
+    }, 3000);
 
 
     setInterval(() => {
