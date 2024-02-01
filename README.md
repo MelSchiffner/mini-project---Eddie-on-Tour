@@ -5,8 +5,7 @@
 
 ![Intro Eddie on Tour Game!](/Images/Demo_Eddie_Game_2.jpg)
 
-![Eddie on Tour Game!](/Images/Demo_Eddie_Game.jpg)
-
+![Eddie on Tour Game!](/Images/Demo_Eddie_game.jpg)
 
 
 # How to play
