@@ -449,12 +449,9 @@ document.addEventListener("keydown", (event) => {
       eddie.moveDown();
     } else if (event.code === "ArrowRight") {
         eddie.moveRight();
-        setEddieDirection("right");
     } else if (event.code === "ArrowLeft") {
         eddie.moveLeft();
-        setEddieDirection("left");
     } else if (event.code === "Space") {
         eddie.jump();
-        console.log("spacebar")
     }
 });

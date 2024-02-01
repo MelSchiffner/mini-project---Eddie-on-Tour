@@ -141,9 +141,10 @@ body{
     height: 100px;
     margin-top: 30px;
     margin-left: 25px;
-    position: fixed;
-    
+    position: fixed; 
 }
+
+
 .scoreDisplay {
     text-align: center;
     padding: 40px;
