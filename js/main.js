@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-
     const startButton = document.createElement("button");
     startButton.textContent = "Start Roadtrip";
     startButton.id = "startButton";
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Instructions
     const instruction = document.createElement("div");
-    instruction.innerHTML = "Move Eddie around with arrow keys or press the spacebar to make him jump."
+    instruction.innerHTML = "Drive Eddie with arrow keys or spacebar to make him jump!"
 
     const arrowImg = document.createElement ("img");
     arrowImg.src = "./Images/arrow.png";
@@ -29,10 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     spaceImg.style.width = "55px";  
     spaceImg.style.height = "55px";
     instruction.appendChild(spaceImg);
-
-    instruction.appendChild(document.createElement("br"));
     
-    instruction.innerHTML += "<br>Avoid the obstacles on the road. <br>And collect the treasures falling from the sky!"
+    instruction.innerHTML += "<br>Avoid the obstacles on the road (-10 points). <br>And collect the treasures falling from the sky (+10 points)!"
     
     instruction.id = "instruction";
 
@@ -56,7 +53,7 @@ sound.volume = 0.2;
 let hornSound = new Audio ('./sound/VW_horn.wav');
 hornSound.volume = 0.2;
 
-
+// Images Obstacles and Treasures
 const obstacleImages = [
     './Images/Kanguru.png',
     './Images/school-bus.png',
@@ -84,6 +81,10 @@ class Eddie {
         this.eddieElm = null;
         this.jumping = false; 
         this.score = 0;
+        this.obstacleSound = new Audio ('./sound/crash.wav');
+        this.obstacleSound.volume = 0.2;
+        this.treasureSound = new Audio ('./sound/ring.wav');
+        this.treasureSound.volume = 0.4;
 
         this.createEddieElement()
 
@@ -150,7 +151,7 @@ class Eddie {
     }
 
     jumpAnimation() {
-        if (this.positionY < 250) {
+        if (this.positionY < 275) {
             this.positionY += 15;
             this.eddieElm.style.bottom = this.positionY + "px";
             this.positionX += 2  ;
@@ -192,13 +193,14 @@ class Eddie {
                 eddieRect.top <= treasureRect.bottom
             ) {
                 treasure.remove();
+                this.treasureSound.play();
             }
             });
     
 
             setTimeout(() => {
                 collisionFlag = false; 
-            }, 3000); 
+            }, 1500); 
         }
     }
     
@@ -208,6 +210,8 @@ class Eddie {
             console.log("Score: " + this.score);
             
             collisionFlag = true;
+            this.obstacleSound.play();
+
             setTimeout(() => {
                 collisionFlag = false;
             }, 3000);
@@ -301,14 +305,25 @@ let obstacles = [];
 let treasures = [];
 let scoreElement;
 
-// Start Background Animation
-
-function startBackgroundAnimation() {
+// Background Animation
+function setEddieDirection(direction) {
     const backgroundImage = document.getElementById("backgroundImage");
+
     if (backgroundImage) {
-        backgroundImage.style.animationPlayState = "running";
+        backgroundImage.classList.remove("moveBackgroundRight", "moveBackgroundLeft");
+        switch (direction) {
+            case "left":
+                backgroundImage.classList.add("moveBackgroundLeft");
+                break;
+            case "right":
+                backgroundImage.classList.add("moveBackgroundRight");
+                break;
+            default:
+                break;
+        }
     }
 }
+
 
 
 // Start game
@@ -318,7 +333,6 @@ function startGame(){
     treasures = [];
     timer();
     createScoreElement();
-    startBackgroundAnimation();
 
 
     // Obstacle Interval
@@ -444,8 +458,10 @@ document.addEventListener("keydown", (event) => {
       eddie.moveDown();
     } else if (event.code === "ArrowRight") {
         eddie.moveRight();
+        setEddieDirection("right");
     } else if (event.code === "ArrowLeft") {
         eddie.moveLeft();
+        setEddieDirection("left");
     } else if (event.code === "Space") {
         eddie.jump();
         console.log("spacebar")

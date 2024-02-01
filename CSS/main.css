@@ -36,15 +36,31 @@ body{
     background-position: 0px, 0px;
     border: thick double #95A834;
     border-radius: 30px;
-    animation: moveBackground 80s linear infinite paused;
 }
 
-@keyframes moveBackground {
+.moveBackgroundRight {
+    animation: moveBackgroundRight 50s linear infinite;
+} 
+
+.moveBackgroundLeft {
+    animation: moveBackgroundLeft 50s linear infinite;
+} 
+
+@keyframes moveBackgroundRight {
     100% {
         background-position: 400vw 0px,
                              300vw 0px,
                              200vw 0px,
                              100vw 0px;
+    }
+}
+
+@keyframes moveBackgroundLeft {
+    100% {
+        background-position: -400vw 0px,
+                             -300vw 0px,
+                             -200vw 0px,
+                             -100vw 0px;
     }
 }
 
@@ -87,10 +103,10 @@ body{
 
 #instruction {
     position: absolute;
-    top: 55%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 20px;
+    font-size: 18px;
     padding: 10px 20px;
     color: white;
     background-color: #95A83495;
@@ -102,7 +118,7 @@ body{
 
 #instruction img {
     display: inline-block;
-    margin: 0 10px;
+    margin: 0 13px;
  
 }
 
