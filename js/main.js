@@ -328,12 +328,20 @@ function startGame(){
 
 
     // Obstacle Interval
-    let obstacleSpeed = 4000;
+    let obstacleInterval = 4000;
+    let obstacleCreationInterval;
 
-    setInterval(() => {
-        const newObstacle = new Obstacle();
-        obstacles.push(newObstacle);
-    }, obstacleSpeed);
+    // start obstacle interval
+    function startObstacleCreationInterval() {
+        obstacleCreationInterval = setInterval(() => {
+            const newObstacle = new Obstacle();
+            obstacles.push(newObstacle);
+        }, obstacleInterval);
+    }
+
+
+    startObstacleCreationInterval();
+
 
     setInterval(() => {
         obstacles.forEach((obstacleInstance) => {
@@ -349,20 +357,43 @@ function startGame(){
 
         });
     }, 10);
+    
 
+    // Update obstacleInterval 
     setTimeout(() => {
-        obstacleSpeed = 3000;
+        clearInterval(obstacleCreationInterval);
+        obstacleInterval = 3000;
+        startObstacleCreationInterval();
     }, 30000);
 
     setTimeout(() => {
-        obstacleSpeed = 2000;
+        clearInterval(obstacleCreationInterval);
+        obstacleInterval = 2000;
+        startObstacleCreationInterval();
     }, 60000);
 
     setTimeout(() => {
-        obstacleSpeed = 1000;
+        clearInterval(obstacleCreationInterval);
+        obstacleInterval = 1000;
+        startObstacleCreationInterval();
     }, 90000);
 
 
+    /*
+    setTimeout(() => {
+        obstacleInterval = 2000;
+        console.log("increase by 2000");
+    }, 30000);
+
+    setTimeout(() => {
+        obstacleInterval = 1000;
+    }, 60000);
+
+    setTimeout(() => {
+        obstacleInterval = 500;
+    }, 90000);
+
+*/
     // Treasure Interval
     setInterval(() => {
         const newTreasure = new Treasure();
