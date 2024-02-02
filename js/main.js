@@ -378,22 +378,7 @@ function startGame(){
         startObstacleCreationInterval();
     }, 90000);
 
-
-    /*
-    setTimeout(() => {
-        obstacleInterval = 2000;
-        console.log("increase by 2000");
-    }, 30000);
-
-    setTimeout(() => {
-        obstacleInterval = 1000;
-    }, 60000);
-
-    setTimeout(() => {
-        obstacleInterval = 500;
-    }, 90000);
-
-*/
+ 
     // Treasure Interval
     setInterval(() => {
         const newTreasure = new Treasure();
