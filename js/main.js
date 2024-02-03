@@ -72,8 +72,8 @@ const treasureImages = [
 
 class Eddie {
     constructor(){
-        this.width = 150;
-        this.height = 66;
+        this.width = 182;
+        this.height = 80;
         this.positionX = 15;
         this.positionY = 20;
         this.eddieElm = null;
@@ -454,17 +454,63 @@ function startGame(){
 
 
 
+const keysPressed = []; 
 
 document.addEventListener("keydown", (event) => {
-    if (event.code === "ArrowUp") {
-      eddie.moveUp();
-    } else if (event.code === "ArrowDown") {
-      eddie.moveDown();
-    } else if (event.code === "ArrowRight") {
-        eddie.moveRight();
-    } else if (event.code === "ArrowLeft") {
-        eddie.moveLeft();
-    } else if (event.code === "Space") {
-        eddie.jump();
+    if (
+        event.code === "ArrowUp" ||
+        event.code === "ArrowDown" ||
+        event.code === "ArrowRight" ||
+        event.code === "ArrowLeft" ||
+        event.code === "Space"
+    ) {
+        keysPressed[event.code] = true;
     }
 });
+
+document.addEventListener("keyup", (event) => {
+    if (
+        event.code === "ArrowUp" ||
+        event.code === "ArrowDown" ||
+        event.code === "ArrowRight" ||
+        event.code === "ArrowLeft" ||
+        event.code === "Space"
+    ) {
+        keysPressed[event.code] = false;
+    }
+});
+
+setInterval(() => {
+    const diagonalSpeed = 1.5;
+
+    if (keysPressed["ArrowLeft"] && keysPressed["ArrowUp"]) {
+      eddie.moveLeft();
+      eddie.moveUp();
+    } else if (keysPressed["ArrowLeft"] && keysPressed["ArrowDown"]) {
+      eddie.moveLeft();
+      eddie.moveDown();
+    } else if (keysPressed["ArrowRight"] && keysPressed["ArrowUp"]) {
+      eddie.moveRight();
+      eddie.moveUp();
+    } else if (keysPressed["ArrowRight"] && keysPressed["ArrowDown"]) {
+      eddie.moveRight();
+      eddie.moveDown();
+    } else if (keysPressed["Space"]) {
+        eddie.jump();
+    } else {
+      if (keysPressed["ArrowLeft"]) {
+        eddie.moveLeft();
+      } else if (keysPressed["ArrowRight"]) {
+        eddie.moveRight();
+      }
+      if (keysPressed["ArrowUp"]) {
+        eddie.moveUp();
+      } else if (keysPressed["ArrowDown"]) {
+        eddie.moveDown();
+      }
+    }
+
+
+
+
+}, 50);
