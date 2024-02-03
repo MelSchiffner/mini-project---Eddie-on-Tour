@@ -58,7 +58,6 @@ const obstacleImages = [
     './Images/waste.png',
     './Images/oil-barrel.png',
     './Images/deer.png',
-    './Images/car.png',
     './Images/school-bus.png'
 ]
 
