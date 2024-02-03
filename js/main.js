@@ -55,13 +55,11 @@ hornSound.volume = 0.2;
 // Images Obstacles and Treasures
 const obstacleImages = [
     './Images/Kanguru.png',
-    './Images/school-bus.png',
     './Images/waste.png',
-    './Images/dog.png',
     './Images/oil-barrel.png',
-    './Images/rock.png',
     './Images/deer.png',
-    './Images/van.png'
+    './Images/car.png',
+    './Images/school-bus.png'
 ]
 
 const treasureImages = [
@@ -225,8 +223,8 @@ class Eddie {
 
 class Obstacle {
     constructor(){
-        this.width = 55; 
-        this.height = 55;
+        this.width = 70; 
+        this.height = 70;
         this.positionX = 1050;
         this.positionY = Math.floor(Math.random() * (100 - 15) + 15);
         this.domElm = null;
@@ -235,7 +233,6 @@ class Obstacle {
     }
     createDomElement(){
         this.domElm = document.createElement("div");
-
         this.domElm.setAttribute("class", "obstacle");
 
         const randomImageIndex = Math.floor(Math.random() * obstacleImages.length);
@@ -325,7 +322,7 @@ function startGame(){
     createScoreElement();
     startBackgroundAnimation();
 
-
+ 
 
     // Obstacle Interval
     let obstacleInterval = 4000;
