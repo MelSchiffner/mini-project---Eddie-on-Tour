@@ -24,6 +24,8 @@ body{
     bottom: 0;  
 }
 
+
+
 #backgroundImage {
     position: relative;
     height: 100%;
@@ -36,8 +38,11 @@ body{
     background-position: 0px, 0px;
     border: thick double #95A834;
     border-radius: 30px;
+    overflow: hidden;
     animation: moveBackground 80s linear infinite paused;
 }
+
+
 
 @keyframes moveBackground {
     100% {

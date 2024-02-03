@@ -45,10 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-let collisionFlag = false;
+let treasureCollisionFlag = false;
+let obstacleCollisionFlag = false;
 let sec = 120;
-let sound = new Audio ('./sound/vw_sound.wav');
-sound.volume = 0.2;
+let vwSound = new Audio ('./sound/vw_sound.wav');
+vwSound.volume = 0.2;
 let hornSound = new Audio ('./sound/VW_horn.wav');
 hornSound.volume = 0.2;
 
@@ -83,6 +84,8 @@ class Eddie {
         this.obstacleSound.volume = 0.1;
         this.treasureSound = new Audio ('./sound/ring.wav');
         this.treasureSound.volume = 0.2;
+        this.obstacleCollisionFlag = false;
+        this.treasureCollisionFlag = false;
 
         this.createEddieElement()
 
@@ -110,7 +113,7 @@ class Eddie {
         if (this.positionY + this.height < 170) {
             this.positionY += 15;
             this.eddieElm.style.bottom = this.positionY + "px";
-            sound.play();
+            vwSound.play();
          }
     }
     
@@ -118,7 +121,7 @@ class Eddie {
         if (this.positionY > 0)  {
             this.positionY -= 15;
             this.eddieElm.style.bottom = this.positionY + "px";
-            sound.play();
+            vwSound.play();
          }
     }
 
@@ -127,7 +130,7 @@ class Eddie {
             this.positionX -= 15;
             this.eddieElm.style.left = this.positionX + "px";
             this.eddieElm.style.transform = "scaleX(-1)";
-            sound.play();
+            vwSound.play();
         }
 
     }
@@ -136,7 +139,7 @@ class Eddie {
            this.positionX += 15;
            this.eddieElm.style.left = this.positionX + "px";
            this.eddieElm.style.transform = "scaleX(1)";
-           sound.play();
+           vwSound.play();
         }
     }
     
@@ -173,11 +176,11 @@ class Eddie {
     }
 
     collectTreasure() {
-        if (!collisionFlag) {
+        if (!this.treasureCollisionFlag) {
             this.score += 10;
             console.log("Score: " + this.score);
             
-            collisionFlag = true; 
+            this.treasureCollisionFlag = true; 
 
                  const collectedTreasures = document.querySelectorAll('.treasure');
         collectedTreasures.forEach((treasure) => {
@@ -196,21 +199,21 @@ class Eddie {
             });
     
             setTimeout(() => {
-                collisionFlag = false; 
+                this.treasureCollisionFlag = false; 
             }, 1500); 
         }
     }
     
     hitObstacle() {
-        if (!collisionFlag) {
+        if (!this.obstacleCollisionFlag) {
             this.score -= 10;
             console.log("Score: " + this.score);
             
-            collisionFlag = true;
+            this.obstacleCollisionFlag = true;
             this.obstacleSound.play();
 
             setTimeout(() => {
-                collisionFlag = false;
+                this.obstacleCollisionFlag = false;
             }, 3000);
         }
         if(this.score < -1){
@@ -411,6 +414,10 @@ function startGame(){
 
         document.body.appendChild(timerElement);
 
+        let countdownAlert = new Audio ('./sound/finalTenAlert.mp3');
+        countdownAlert.volume = 0.5;
+    
+
         let timerInterval = setInterval(function(){
             timerDispaly.innerHTML = sec;
             sec--;
@@ -419,6 +426,9 @@ function startGame(){
                 clearInterval(timerInterval);
                 localStorage.setItem("finalScore", eddie.score);
                 location.href = "endgamescore.html";
+            } else if (sec <= 10) {
+                countdownAlert.play();
+                console.log ("Alert playing")
             }
         }, 1000);
     }
@@ -439,7 +449,8 @@ function startGame(){
 
         document.body.appendChild(scoreElement);
 
-        collisionFlag = false;
+        treasureCollisionFlag = false;
+        obstacleCollisionFlag = false;
     }
 
     createScoreElement();
